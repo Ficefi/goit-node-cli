@@ -12,7 +12,6 @@ commander.program.parse();
 const options = commander.program.opts();
 let response;
 
-// TODO: рефакторити
 async function invokeAction({ action, id, name, email, phone }) {
 	switch (action) {
 		case "list":

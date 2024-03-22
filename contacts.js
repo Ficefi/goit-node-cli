@@ -1,7 +1,7 @@
 const fs = require("fs").promises;
-require("path");
+const path = require("path");
 
-const contactsPath = "./db/contacts.json";
+const contactsPath = path.join(__dirname, "/db/contacts.json");
 
 function createId() {
 	return Math.round(Math.random() * 10 ** 20).toString();
@@ -15,7 +15,7 @@ async function listContacts() {
 async function getContactById(contactId) {
 	const array = await listContacts();
 	const index = array.findIndex((arr) => arr.id === contactId);
-	return array[index] != -1 ? array[index] : null;
+	return array[index] || null;
 }
 
 async function removeContact(contactId) {
@@ -23,7 +23,7 @@ async function removeContact(contactId) {
 	const index = array.findIndex((arr) => arr.id === contactId);
 	const newArray = array.filter((contact) => contact.id !== contactId);
 	fs.writeFile(contactsPath, JSON.stringify(newArray));
-	return array[index].id == contactId ? array[index] : null;
+	return array[index] || null;
 }
 
 async function addContact(name, email, phone) {
